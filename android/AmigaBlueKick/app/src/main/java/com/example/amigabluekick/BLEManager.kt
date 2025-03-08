@@ -14,7 +14,7 @@ import java.util.*
 
 class BLEManager(private val context: Context) {
 
-    var listener: (()->Unit)? = null
+    var listener: ((String?)->Unit)? = null
 
     // Nome del dispositivo BLE da cercare (uguale al tuo "sensorName" in iOS)
     private val deviceName = "AmigaKickstartControl"
@@ -42,6 +42,7 @@ class BLEManager(private val context: Context) {
                 // Scopriamo i servizi sul dispositivo
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                listener?.invoke(null)
                 Log.d(TAG, "Dispositivo disconnesso")
                 bluetoothGatt = null
                 // Eventualmente riavvia la scansione, se vuoi riconnetterti automaticamente
@@ -56,9 +57,9 @@ class BLEManager(private val context: Context) {
                     // Trova la caratteristica
                     val characteristic = service.getCharacteristic(characteristicUUID)
                     if (characteristic != null) {
+                        bluetoothGatt?.readCharacteristic(characteristic)
                         writeCharacteristic = characteristic
                         Log.d(TAG, "Caratteristica individuata: $characteristicUUID")
-                        listener?.invoke()
                     } else {
                         Log.e(TAG, "Caratteristica non trovata!")
                     }
@@ -70,6 +71,28 @@ class BLEManager(private val context: Context) {
             }
         }
 
+        override fun onCharacteristicRead(
+            gatt: BluetoothGatt,
+            characteristic: BluetoothGattCharacteristic,
+            value: ByteArray,
+            status: Int
+        ) {
+            if (characteristic.uuid == characteristicUUID) {
+                val data = characteristic.value
+                val stringValue = data?.let { String(it) }
+                Log.d(TAG, "Valore aggiornato dalla caratteristica: $stringValue")
+                listener?.invoke(stringValue)
+            }
+        }
+
+        override fun onCharacteristicWrite(
+            gatt: BluetoothGatt?,
+            characteristic: BluetoothGattCharacteristic?,
+            status: Int
+        ) {
+            bluetoothGatt?.readCharacteristic(characteristic)
+        }
+
         // Se vuoi leggere i dati inviati dal dispositivo, puoi gestire onCharacteristicChanged
         override fun onCharacteristicChanged(
             gatt: BluetoothGatt,
@@ -79,6 +102,7 @@ class BLEManager(private val context: Context) {
                 val data = characteristic.value
                 val stringValue = data?.let { String(it) }
                 Log.d(TAG, "Valore aggiornato dalla caratteristica: $stringValue")
+                listener?.invoke(stringValue)
             }
         }
     }

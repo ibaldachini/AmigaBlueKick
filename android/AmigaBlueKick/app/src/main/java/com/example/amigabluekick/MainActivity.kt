@@ -1,5 +1,7 @@
 package com.example.amigabluekick
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -48,10 +50,59 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Quando vuoi inviare un messaggio...
-        bleManager.listener = {
+        bleManager.listener = { actual ->
             this.runOnUiThread {
-                findViewById<LinearLayout>(R.id.waitlayout).visibility = View.GONE;
-                findViewById<LinearLayout>(R.id.connectedlayout).visibility = View.VISIBLE;
+                if (actual == null) {
+                    findViewById<LinearLayout>(R.id.waitlayout).visibility = View.VISIBLE;
+                    findViewById<LinearLayout>(R.id.connectedlayout).visibility = View.GONE;
+                } else {
+                    findViewById<LinearLayout>(R.id.waitlayout).visibility = View.GONE;
+                    findViewById<LinearLayout>(R.id.connectedlayout).visibility = View.VISIBLE;
+                    findViewById<Button>(R.id.btnkick1).backgroundTintList = ColorStateList.valueOf(
+                        Color.parseColor("#808080")
+                    )
+                    findViewById<Button>(R.id.btnkick1).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick2).backgroundTintList = ColorStateList.valueOf(
+                        Color.parseColor("#808080")
+                    )
+                    findViewById<Button>(R.id.btnkick2).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick3).backgroundTintList = ColorStateList.valueOf(
+                        Color.parseColor("#808080")
+                    )
+                    findViewById<Button>(R.id.btnkick3).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick4).backgroundTintList = ColorStateList.valueOf(
+                        Color.parseColor("#808080")
+                    )
+                    findViewById<Button>(R.id.btnkick4).setTextColor(Color.parseColor("#000000"))
+                    if (actual == "0") {
+                        findViewById<Button>(R.id.btnkick1).backgroundTintList =
+                            ColorStateList.valueOf(
+                                Color.parseColor("#0000FF")
+                            )
+                        findViewById<Button>(R.id.btnkick1).setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                    if (actual == "1") {
+                        findViewById<Button>(R.id.btnkick2).backgroundTintList =
+                            ColorStateList.valueOf(
+                                Color.parseColor("#0000FF")
+                            )
+                        findViewById<Button>(R.id.btnkick2).setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                    if (actual == "2") {
+                        findViewById<Button>(R.id.btnkick3).backgroundTintList =
+                            ColorStateList.valueOf(
+                                Color.parseColor("#0000FF")
+                            )
+                        findViewById<Button>(R.id.btnkick3).setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                    if (actual == "3") {
+                        findViewById<Button>(R.id.btnkick4).backgroundTintList =
+                            ColorStateList.valueOf(
+                                Color.parseColor("#0000FF")
+                            )
+                        findViewById<Button>(R.id.btnkick4).setTextColor(Color.parseColor("#FFFFFF"))
+                    }
+                }
             }
         }
 

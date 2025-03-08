@@ -12,13 +12,42 @@
         android:id="@+id/waitlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/waitingamigabluekick"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
             app:srcCompat="@drawable/amigainsertworkbench" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="v1.0 developed by Igor Baldachini"
+            android:textAlignment="center"
+            android:textColor="#909090" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Amiga is a trademark of Amiga Corporation"
+            android:textAlignment="center"
+            android:textColor="#909090" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -39,8 +68,9 @@
         <ImageView
             android:id="@+id/amigalogo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="fitStart"
             app:srcCompat="@drawable/commodoreamigalogo" />
 
         <Button
@@ -51,10 +81,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="#808080"
+            android:layout_weight="0"
+            android:backgroundTint="#808080"
             android:enabled="true"
-            android:text="Kickstart 1" />
+            android:text="Kickstart 1"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnkick2"
@@ -64,10 +96,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="#808080"
+            android:layout_weight="0"
+            android:backgroundTint="#808080"
             android:enabled="true"
-            android:text="Kickstart 2" />
+            android:text="Kickstart 2"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnkick3"
@@ -77,10 +111,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="#808080"
+            android:layout_weight="0"
+            android:backgroundTint="#808080"
             android:enabled="true"
-            android:text="Kickstart 3" />
+            android:text="Kickstart 3"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnkick4"
@@ -89,11 +125,31 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="#808080"
+            android:layout_marginBottom="150dp"
+            android:layout_weight="0"
+            android:backgroundTint="#808080"
             android:enabled="true"
-            android:text="Kickstart 4" />
+            android:text="Kickstart 4"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="v1.0 developed by Igor Baldachini"
+            android:textAlignment="center"
+            android:textColor="#909090" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Amiga is a trademark of Amiga Corporation"
+            android:textAlignment="center"
+            android:textColor="#909090" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
