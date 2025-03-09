@@ -1,11 +1,13 @@
 package com.example.amigabluekick
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,8 +16,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var bleManager: BLEManager
+    private lateinit var userPreferencesManager: UserPreferencesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,10 @@ class MainActivity : AppCompatActivity() {
 
         // Inizializza BLEManager
         bleManager = BLEManager(this)
+
+        userPreferencesManager = UserPreferencesManager(this)
+
+        var prefs = userPreferencesManager.getPreferences()
 
         findViewById<Button>(R.id.btnkick1).setOnClickListener() {
             bleManager.send("0")
@@ -62,18 +70,22 @@ class MainActivity : AppCompatActivity() {
                         Color.parseColor("#808080")
                     )
                     findViewById<Button>(R.id.btnkick1).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick1).setText(prefs.btn1Text)
                     findViewById<Button>(R.id.btnkick2).backgroundTintList = ColorStateList.valueOf(
                         Color.parseColor("#808080")
                     )
                     findViewById<Button>(R.id.btnkick2).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick2).setText(prefs.btn2Text)
                     findViewById<Button>(R.id.btnkick3).backgroundTintList = ColorStateList.valueOf(
                         Color.parseColor("#808080")
                     )
                     findViewById<Button>(R.id.btnkick3).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick3).setText(prefs.btn3Text)
                     findViewById<Button>(R.id.btnkick4).backgroundTintList = ColorStateList.valueOf(
                         Color.parseColor("#808080")
                     )
                     findViewById<Button>(R.id.btnkick4).setTextColor(Color.parseColor("#000000"))
+                    findViewById<Button>(R.id.btnkick4).setText(prefs.btn4Text)
                     if (actual == "0") {
                         findViewById<Button>(R.id.btnkick1).backgroundTintList =
                             ColorStateList.valueOf(
@@ -106,8 +118,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        findViewById<ImageButton>(R.id.btnSettings).setOnClickListener() {
+            val intent = Intent(
+                this,
+                UserPreferencesActivity::class.java
+            )
+            startActivity(intent)
+        }
+
         // (2) Avvia la scansione
         bleManager.startScan()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var prefs = userPreferencesManager.getPreferences()
+        findViewById<Button>(R.id.btnkick1).setText(prefs.btn1Text)
+        findViewById<Button>(R.id.btnkick2).setText(prefs.btn2Text)
+        findViewById<Button>(R.id.btnkick3).setText(prefs.btn3Text)
+        findViewById<Button>(R.id.btnkick4).setText(prefs.btn4Text)
     }
 
     private fun requestBlePermissionsIfNeeded() {
